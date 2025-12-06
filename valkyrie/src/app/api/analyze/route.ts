@@ -14,7 +14,7 @@ export async function POST() {
     const imageResp = await fetch(imageUrl);
     const imageBuffer = await imageResp.arrayBuffer();
     
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
     const prompt = `
       Analyze this security camera footage. 
