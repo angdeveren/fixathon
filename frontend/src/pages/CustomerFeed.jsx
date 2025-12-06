@@ -28,7 +28,7 @@ function CustomerFeed() {
 
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('prompt', "Analyze this surveillance footage immediately. Identify any threats, intruders, or safety breaches. Provide a tactical summary.");
+      formData.append('prompt', "Describe the scene in this video for emergency responders. Identify any people, their actions, and potential safety concerns objectively.");
 
       const apiResponse = await fetch('http://localhost:8000/analyze', {
         method: 'POST',
@@ -88,10 +88,14 @@ function CustomerFeed() {
             
             {/* Overlay UI */}
             <div className="absolute top-4 left-4 flex flex-col gap-1">
-              <div className="bg-black/50 backdrop-blur-md px-3 py-1 rounded text-xs font-mono text-white border border-white/10">
+              <div className="bg-red-600 text-white px-3 py-1 rounded text-xs font-bold animate-pulse flex items-center gap-2 shadow-lg mb-2 w-fit">
+                <div className="w-2 h-2 bg-white rounded-full" />
+                LIVE
+              </div>
+              <div className="bg-black/50 backdrop-blur-md px-3 py-1 rounded text-xs font-mono text-white border border-white/10 w-fit">
                 CAM: {customer.camera}
               </div>
-              <div className="bg-black/50 backdrop-blur-md px-3 py-1 rounded text-xs font-mono text-white border border-white/10">
+              <div className="bg-black/50 backdrop-blur-md px-3 py-1 rounded text-xs font-mono text-white border border-white/10 w-fit">
                 LOC: {customer.address}
               </div>
             </div>
@@ -110,7 +114,7 @@ function CustomerFeed() {
           <div className="bg-card border border-white/10 rounded-2xl p-6 h-full flex flex-col">
             <div className="flex items-center gap-3 mb-6">
               <Shield className="w-6 h-6 text-primary" />
-              <h2 className="text-lg font-bold">Tactical Analysis</h2>
+              <h2 className="text-lg font-bold">AI Analysis</h2>
             </div>
 
             <div className="flex-1 overflow-y-auto custom-scrollbar pr-2">

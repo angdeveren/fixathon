@@ -10,11 +10,14 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-const Map = () => {
+const Map = ({ customers = [], onSelectCustomer }) => {
+  // Default center (Stockholm)
+  const center = [59.3293, 18.0686];
+
   return (
     <MapContainer 
-      center={[59.3293, 18.0686]} 
-      zoom={14} 
+      center={center} 
+      zoom={13} 
       scrollWheelZoom={false} 
       className="h-full w-full grayscale invert contrast-125"
       zoomControl={false}
@@ -23,11 +26,22 @@ const Map = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[59.3293, 18.0686]}>
-        <Popup>
-          TARGET: USER #5591
-        </Popup>
-      </Marker>
+      {customers.map((customer) => (
+        <Marker 
+          key={customer.id} 
+          position={[59.3293 + (Math.random() * 0.02 - 0.01), 18.0686 + (Math.random() * 0.02 - 0.01)]}
+          eventHandlers={{
+            click: () => {
+              if (onSelectCustomer) onSelectCustomer(customer.id);
+            },
+          }}
+        >
+          <Popup>
+            <strong>{customer.name}</strong><br />
+            {customer.status}
+          </Popup>
+        </Marker>
+      ))}
     </MapContainer>
   );
 };
